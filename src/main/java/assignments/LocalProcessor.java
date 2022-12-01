@@ -3,7 +3,10 @@ package assignments;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
 import assignments.annotations.ListIteratorAnnotation;
@@ -19,10 +22,10 @@ public class LocalProcessor {
     protected String processorVersion;
     private Integer valueOfCheap;
     private Scanner informationScanner;
-    private LinkedList<String> stringArrayList;
+    private List<String> stringArrayList;
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
-                          Scanner informationScanner, LinkedList<String> stringArrayList) {
+                          Scanner informationScanner, List<String> stringArrayList) {
         this.processorName = processorName;
         this.period = period;
         this.processorVersion = processorVersion;
@@ -35,15 +38,16 @@ public class LocalProcessor {
     }
 
     @ListIteratorAnnotation
-    public void listIterator(LinkedList<String> stringList) {
+    public void listIterator(List<String> stringList) {
         stringArrayList = new LinkedList<>(stringList);
+        Logger logger = Logger.getLogger(LocalProcessor.class.getSimpleName());
         for (String elem : stringArrayList) {
-            System.out.println(elem.hashCode());
+            logger.log(Level.INFO, String.valueOf(elem.hashCode()));
         }
     }
 
     @FullNameProcessorGeneratorAnnotation
-    public String fullNameProcessorGenerator(LinkedList<String> stringList) {
+    public String fullNameProcessorGenerator(List<String> stringList) {
         stringArrayList = new LinkedList<>(stringList);
         StringBuilder stringBuilder = new StringBuilder();
         for (String elem : stringArrayList) {
