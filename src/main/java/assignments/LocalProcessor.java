@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
@@ -23,6 +22,7 @@ public class LocalProcessor {
     private Integer valueOfCheap;
     private Scanner informationScanner;
     private List<String> stringArrayList;
+    private Logger logger = Logger.getLogger(LocalProcessor.class.getName());
 
     public LocalProcessor(StringBuilder processorName, Long period, StringBuilder processorVersion, Integer valueOfCheap,
                           Scanner informationScanner, List<String> stringArrayList) {
@@ -39,9 +39,7 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void listIterator(List<String> stringList) {
-        stringArrayList = new LinkedList<>(stringList);
-        Logger logger = Logger.getLogger(LocalProcessor.class.getSimpleName());
-        for (String elem : stringArrayList) {
+        for (String elem : stringList) {
             logger.info(String.valueOf(elem.hashCode()));
         }
     }
