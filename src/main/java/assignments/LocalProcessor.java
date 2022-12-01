@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
@@ -56,15 +55,12 @@ public class LocalProcessor {
 
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) {
-        try {
-            informationScanner = new Scanner(file);
-            while (informationScanner.hasNext()) {
-                processorVersion.append(informationScanner.nextLine());
+        try (Scanner scanner = new Scanner(file)){
+            while (scanner.hasNext()) {
+                processorVersion.append(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
             logger.warning(e.getMessage());
-        } finally {
-            informationScanner.close();
         }
 
     }
