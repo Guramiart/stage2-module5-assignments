@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
@@ -49,17 +50,22 @@ public class LocalProcessor {
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(List<String> stringList) {
         stringArrayList = new LinkedList<>(stringList);
-        for (String elem : stringArrayList) {
-            processorName.append(elem).append(" ");
-        }
+        stringArrayList.forEach(e -> processorName.append(e).append(" "));
         return processorName.toString();
     }
 
     @ReadFullProcessorNameAnnotation
-    public void readFullProcessorName(File file) throws FileNotFoundException {
+    public void readFullProcessorName(File file) {
+        try {
             informationScanner = new Scanner(file);
             while (informationScanner.hasNext()) {
                 processorVersion.append(informationScanner.nextLine());
             }
+        } catch (FileNotFoundException e) {
+            logger.warning(e.getMessage());
+        } finally {
+            informationScanner.close();
+        }
+
     }
 }
