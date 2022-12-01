@@ -55,13 +55,15 @@ public class LocalProcessor {
 
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) {
-        try (Scanner scanner = new Scanner(file)){
-            while (scanner.hasNext()) {
-                processorVersion.append(scanner.nextLine());
+        try {
+            informationScanner = new Scanner(file);
+            while (informationScanner.hasNext()) {
+                processorVersion.append(informationScanner.nextLine());
             }
         } catch (FileNotFoundException e) {
             logger.warning(e.getMessage());
+        } finally {
+            informationScanner.close();
         }
-
     }
 }
