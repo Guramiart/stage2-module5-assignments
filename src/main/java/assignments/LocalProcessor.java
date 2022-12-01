@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -39,9 +40,10 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void listIterator(List<String> stringList) {
-        for (String elem : stringList) {
-            logger.info(String.valueOf(elem.hashCode()));
-        }
+        stringList.stream()
+                .filter(Objects::nonNull)
+                .map(Objects::hashCode)
+                .forEach(o -> logger.info(String.valueOf(o)));
     }
 
     @FullNameProcessorGeneratorAnnotation
